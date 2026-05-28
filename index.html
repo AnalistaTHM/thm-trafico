@@ -981,14 +981,36 @@
   .cell-ppto-vacio { font-size: 12px; color: var(--text3); }
   .cell-cumpl      { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700; }
 
-  /* Fila de "mi tienda" en el ranking de líderes */
-  .ranking-table tbody tr.mi-tienda-row td { background: rgba(0,120,212,0.06); }
-  .ranking-table tbody tr.mi-tienda-row td.col-sticky,
-  .ranking-table tbody tr.mi-tienda-row td.col-sticky-2 { background: rgba(0,120,212,0.06); }
-  .ranking-table tbody tr.mi-tienda-row:hover td { background: rgba(0,120,212,0.10); }
-  .ranking-table tbody tr.mi-tienda-row:hover td.col-sticky,
-  .ranking-table tbody tr.mi-tienda-row:hover td.col-sticky-2 { background: rgba(0,120,212,0.10); }
-  .mi-tienda-tag { font-size: 9px; color: var(--accent); font-weight: 500; letter-spacing: 0.3px; }
+  /* Fila de "mi tienda" — solo resaltar la celda del nombre, no toda la fila */
+  .ranking-table tbody tr.mi-tienda-row td { background: transparent; }
+  .ranking-table tbody tr.mi-tienda-row:hover td { background: var(--surface2); }
+
+  /* Celda sticky del nombre: fondo negro, texto blanco */
+  .ranking-table tbody tr.mi-tienda-row td.col-sticky-2 {
+    background: #111111 !important;
+    border-radius: 0;
+  }
+  .ranking-table tbody tr.mi-tienda-row:hover td.col-sticky-2 { background: #222222 !important; }
+  .ranking-table tbody tr.mi-tienda-row td.col-sticky { background: transparent !important; }
+  .ranking-table tbody tr.mi-tienda-row:hover td.col-sticky { background: var(--surface2) !important; }
+
+  .ranking-table tbody tr.mi-tienda-row .asesor-name {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+  .ranking-table tbody tr.mi-tienda-row .asesor-tienda {
+    color: #99ffdb;
+    font-weight: 500;
+  }
+  .mi-tienda-tag { font-size: 9px; color: #99ffdb; font-weight: 600; letter-spacing: 0.3px; }
+
+  /* Métricas de la fila: un poco más grandes para reforzar el énfasis */
+  .ranking-table tbody tr.mi-tienda-row .metric-value,
+  .ranking-table tbody tr.mi-tienda-row .semaforo,
+  .ranking-table tbody tr.mi-tienda-row .tickets-badge,
+  .ranking-table tbody tr.mi-tienda-row .cell-ppto,
+  .ranking-table tbody tr.mi-tienda-row .cell-cumpl { font-size: 13px; font-weight: 600; }
 
   /* Criterios de semáforo inline (debajo del título del ranking) */
   .criterios-inline {
@@ -1846,13 +1868,16 @@ const EXCLUIR_VENDEDORES = ['THERMOS S.A.S', 'THERMOS SAS', 'THERMOS S.A.S.'];
 // MAPEO DE CANALES
 // ═══════════════════════════════════════════
 const CANAL_MAP = {
-  'PDV ANDINO BOGOTA':           'Andino',
-  'PDV GRAN ESTACION BOGOTA':    'Gran Estacion',
+  'PDV ANDINO BOGOTA':               'Andino',
+  'PDV GRAN ESTACION BOGOTA':        'Gran Estacion',
   'PDV HACIENDA STA BARBARA BOGOTA': 'Hacienda',
-  'PDV SANTA FE BOGOTA':         'Santa Fe',
-  'PDV TESORO MEDELLIN':         'Tesoro',
-  'PDV TITAN PLAZA':             'Titan',
-  'PDV UNICENTRO BOGOTA':        'Unicentro',
+  'PDV SANTA FE BOGOTA':             'Santa Fe',
+  'PDV TESORO MEDELLIN':             'Tesoro',
+  'PDV TITAN PLAZA':                 'Titan',
+  'PDV UNICENTRO BOGOTA':            'Unicentro',
+  // Alias del nombre antiguo guardado en Supabase antes del fix (mayo 2026)
+  'SANTAFE BOG':                     'Santa Fe',
+  'SANTAFE BOGOTA':                  'Santa Fe',
 };
 
 function normalizarCanal(raw) {
